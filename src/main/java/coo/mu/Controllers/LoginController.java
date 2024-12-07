@@ -5,6 +5,9 @@ import coo.mu.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -24,4 +27,10 @@ public class LoginController {
     public String Register(@RequestParam Usuario usuario){
         return null;
     }
+    
+    @GetMapping("/login")
+    public String LoginView() {
+        return "login";
+    }
+    
 }
