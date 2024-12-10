@@ -6,31 +6,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
 @RequestMapping("/auth")
-public class LoginController {
+public class AuthController {
 
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping("/loginpost")
     public ResponseEntity<String> login(@RequestBody Usuario usuario) {
         String response = authService.login(usuario);
         return ResponseEntity.ok(response);
     }
-
-
-    @PostMapping("/register")
-    public String Register(@RequestParam Usuario usuario){
-        return null;
-    }
     
+    @PostMapping("/registerpost")
+    public ResponseEntity<String> register(@RequestBody Usuario usuario){
+    	String response=authService.register(usuario);
+    	return ResponseEntity.ok(response);
+    }
+
+   
     @GetMapping("/login")
     public String LoginView() {
         return "login";
     }
     
+    
+    @GetMapping("/home")
+    public String homePage() {
+        return "home";  
+    }
+    
+    @GetMapping("/register")
+    public String register() {
+    	return "register";
+    }
 }
