@@ -27,6 +27,8 @@ public class AuthController {
     	String response=authService.register(usuario);
     	return ResponseEntity.ok(response);
     }
+    
+    
 
    
     @GetMapping("/login")

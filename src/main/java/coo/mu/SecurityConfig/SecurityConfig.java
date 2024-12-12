@@ -31,7 +31,7 @@ public class SecurityConfig {
                 HeadersConfigurer.FrameOptionsConfig::sameOrigin
         			))
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**","/usuario/**").permitAll()
                 .anyRequest().authenticated()
             ).sessionManagement((session) -> session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
