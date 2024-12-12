@@ -10,9 +10,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+
+import coo.mu.jwt.JwtUtil;
 
 
 @Configuration
@@ -23,6 +26,11 @@ public class SecurityConfig {
 	
 	@Autowired
 	private LogoutHandler logoutHandler;
+	
+	@Autowired
+	private JwtUtil jwtUtil;
+	
+	
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -31,7 +39,7 @@ public class SecurityConfig {
                 HeadersConfigurer.FrameOptionsConfig::sameOrigin
         			))
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/auth/**","/usuario/**").permitAll()
+            		.requestMatchers("/auth/**", "/usuario/**", "/api/test/token").permitAll()
                 .anyRequest().authenticated()
             ).sessionManagement((session) -> session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
